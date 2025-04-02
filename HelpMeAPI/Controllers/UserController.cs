@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HelpMeAPI.Entities;
+using HelpMeAPI.DTos;
 
 namespace HelpMeAPI.Controllers
 {
@@ -75,12 +76,19 @@ namespace HelpMeAPI.Controllers
         // POST: api/User
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<User>> PostUser(UserDto userDto)
         {
-            _context.Users.Add(user);
+            var userEntity = new User()
+            {
+               UserName = userDto.UserName,
+                Email = userDto.Email,
+                Password = userDto.Password
+            };
+
+            _context.Users.Add(userEntity);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.Id }, user);
+            return Ok("New User Profile Created");
         }
 
         // DELETE: api/User/5

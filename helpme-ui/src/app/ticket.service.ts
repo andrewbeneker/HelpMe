@@ -20,8 +20,8 @@ export class TicketService {
     return this.http.get(`${this.baseUrl}/Tickets/${id}`);
   }
 
-  updateTicket(id: number) {
-    return this.http.put(`${this.baseUrl}/Tickets/${id}`,  );
+  updateTicket(id: number, Name: string) {
+    return this.http.put(`${this.baseUrl}/Tickets/${id}`, Name);
   }
 
   createTicket(ticket: { Name: string, Email: string, Title: string, Body: string }) {
