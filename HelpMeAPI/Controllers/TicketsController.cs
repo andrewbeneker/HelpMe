@@ -46,13 +46,13 @@ namespace HelpMeAPI.Controllers
         // PUT: api/Tickets/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTicket(int id, Ticket ticket)
+        public async Task<IActionResult> PutTicket(int id)
         {
             
                 var ticketEntity = _context.Tickets.Where(t => t.Id == id).FirstOrDefault();
-                var user = _context.Users.Where(u => u.Id == id).FirstOrDefault();
+               
                 ticketEntity.TicketOpen = false;
-                ticketEntity.ResolvedBy = user.UserName;
+                
                 return Ok($"This ticket was resolved");
                 await _context.SaveChangesAsync();
             
